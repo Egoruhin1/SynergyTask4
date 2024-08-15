@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои аренды</title>
+</head>
+<body>
+    <h1>Мои аренды</h1>
+    <ul>
+        {% for rental in rentals %}
+        <li>
+            {{ rental.book.title }} - Срок возврата: {{ rental.return_due }}
+            {% if rental.rented_at %}
+                - Дата аренды: {{ rental.rented_at }}
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>У вас нет активных аренд.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

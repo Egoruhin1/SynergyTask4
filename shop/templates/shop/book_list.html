@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книжный магазин</title>
+</head>
+<body>
+    <h1>Книжный магазин</h1>
+    <h2>Список книг</h2>
+    <form method="get">
+        <select name="category">
+            <option value="">Все категории</option>
+            {% for category in categories %}
+            <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="author" placeholder="Автор">
+        <input type="number" name="year" placeholder="Год">
+        <button type="submit">Сортировать</button>
+    </form>
+    <ul>
+        {% for book in books %}
+        <li>
+            {{ book.title }} by {{ book.author }} ({{ book.year }})
+            <a href="{% url 'rent_book' book.id %}">Арендовать</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_book' %}">Добавить книгу</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'my_rentals' %}">Мои аренды</a>
+        <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'register' %}">Регистрация</a>
+        <a href="{% url 'login' %}">Вход</a>
+    {% endif %}
+</body>
+</html>
